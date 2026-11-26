@@ -699,6 +699,24 @@
         font-size: 1.25rem;
       }
     }
+
+    /* Hide Netlify Badge */
+    #nl-badge-frame,
+    iframe[id*="nl-badge"],
+    iframe[title*="Netlify" i],
+    [data-netlify-badge] {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
   </style>
 </head>
 <body>
@@ -1612,6 +1630,39 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
+
+    /* ========================================================================
+       10. NETLIFY BADGE CLEANER (MutationObserver)
+       ======================================================================== */
+    (function setupNetlifyBadgeRemover() {
+      const NETLIFY_SELECTOR = '#nl-badge-frame, iframe[id*="nl-badge"], iframe[title*="Netlify" i], [data-netlify-badge]';
+
+      function removeNetlifyBadges(root = document) {
+        if (!root || !root.querySelectorAll) return;
+        if (root.matches && root.matches(NETLIFY_SELECTOR)) {
+          root.remove();
+          return;
+        }
+        root.querySelectorAll(NETLIFY_SELECTOR).forEach(el => el.remove());
+      }
+
+      removeNetlifyBadges(document);
+
+      const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              removeNetlifyBadges(node);
+            }
+          }
+        }
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
   </script>
 </body>
 </html>
