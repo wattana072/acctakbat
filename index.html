@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>บัญชีตักบาตรพระหมื่นรูป</title>
+
+  <!-- Favicon 'AC' -->
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%238EC5FC'/%3E%3Cstop offset='100%25' stop-color='%234A89F3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-weight='bold' font-size='28' fill='%23ffffff' letter-spacing='1'%3EAC%3C/text%3E%3C/svg%3E"
+  />
+
+  <!-- Google Fonts: Taviraj & Sarabun -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Taviraj:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ==========================================================================
+       THEME CONFIGURATION (กำหนดตัวแปร CSS แยกเป็น Set เพื่อแก้ไขได้ง่าย)
+       ========================================================================== */
+    :root {
+      --font-display: 'Taviraj', serif;
+      --font-body: 'Sarabun', sans-serif;
+
+      /* Pastel Blue Gen Z Palette */
+      --bg-gradient-1: #eef5ff;
+      --bg-gradient-2: #dcebff;
+      --bg-gradient-3: #f5f9ff;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-solid: #ffffff;
+      --surface-soft: #f2f7ff;
+
+      --primary-100: #e0edff;
+      --primary-200: #c2dcff;
+      --primary-300: #93c0ff;
+      --primary-400: #66a3ff;
+      --primary-500: #4285f4;
+      --primary-600: #2b67d4;
+
+      --text-main: #1e2f4d;
+      --text-muted: #5d7296;
+      --border-soft: #d5e4ff;
+
+      --income-bg: #dcfce7;
+      --income-text: #15803d;
+      --expense-bg: #ffe4e6;
+      --expense-text: #be123c;
+
+      --shadow-soft: 0 12px 32px -8px rgba(66, 133, 244, 0.16);
+      --shadow-card: 0 6px 20px -4px rgba(43, 103, 212, 0.1);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 10%, #d4e6ff 0%, transparent 40%),
+        radial-gradient(circle at 90% 15%, #e3e8ff 0%, transparent 38%),
+        radial-gradient(circle at 50% 95%, #d9eeff 0%, transparent 45%),
+        linear-gradient(160deg, var(--bg-gradient-1), var(--bg-gradient-2) 55%, var(--bg-gradient-3));
+      min-height: 100vh;
+      padding: 24px 16px 56px;
+      line-height: 1.55;
+    }
+
+    .app-container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .app-header {
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-xl);
+      padding: 22px 28px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #8ec5fc 0%, #4a89f3 100%);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 18px rgba(74, 137, 243, 0.32);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #16325c;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      padding: 6px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 22px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 10px 22px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary-600);
+      background: rgba(147, 192, 255, 0.18);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary-400), var(--primary-500));
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(66, 133, 244, 0.28);
+    }
+
+    /* Cards & Panels */
+    .panel {
+      display: none;
+      animation: fadeSlideIn 0.25s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #16325c;
+    }
+
+    /* Filters */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .input,
+    .select {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: var(--surface-solid);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 9px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input:focus,
+    .select:focus {
+      border-color: var(--primary-400);
+      box-shadow: 0 0 0 3px rgba(102, 163, 255, 0.22);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-body);
+      font-size: 0.94rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-400), var(--primary-500));
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(66, 133, 244, 0.28);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 8px 22px rgba(66, 133, 244, 0.38);
+    }
+
+    .btn-soft {
+      background: var(--primary-100);
+      color: var(--primary-600);
+    }
+
+    .btn-soft:hover {
+      background: var(--primary-200);
+    }
+
+    .btn-danger {
+      background: #ffe4e6;
+      color: #be123c;
+    }
+
+    .btn-danger:hover {
+      background: #fecdd3;
+    }
+
+    .btn-sm {
+      padding: 6px 13px;
+      font-size: 0.84rem;
+    }
+
+    /* Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: var(--surface-solid);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+    }
+
+    thead th {
+      background: linear-gradient(180deg, #eaf2ff 0%, #dcebff 100%);
+      color: #1e3a8a;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: left;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 1.5px solid var(--border-soft);
+    }
+
+    tbody td {
+      padding: 12px 14px;
+      font-size: 0.93rem;
+      border-bottom: 1px solid #edf3ff;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #f6faff;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .num-font {
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .badge-income {
+      background: var(--income-bg);
+      color: var(--income-text);
+    }
+
+    .badge-expense {
+      background: var(--expense-bg);
+      color: var(--expense-text);
+    }
+
+    .badge-cat {
+      background: var(--primary-100);
+      color: var(--primary-600);
+      font-weight: 600;
+    }
+
+    .table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 6px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 16px;
+      color: var(--text-muted);
+    }
+
+    /* Segmented Type Switch */
+    .type-pills {
+      display: inline-flex;
+      background: var(--surface-soft);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .type-pill {
+      border: none;
+      background: transparent;
+      padding: 7px 18px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .type-pill.active {
+      background: var(--primary-500);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(66, 133, 244, 0.25);
+    }
+
+    /* Summary Tab */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      right: -24px;
+      top: -24px;
+      opacity: 0.22;
+    }
+
+    .kpi-income::after { background: #34d399; }
+    .kpi-expense::after { background: #fb7185; }
+    .kpi-balance::after { background: #60a5fa; }
+
+    .kpi-label {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #16325c;
+    }
+
+    .kpi-sub {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .progress-item {
+      margin-bottom: 14px;
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #e8f1ff;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      transition: width 0.4s ease;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 42, 82, 0.36);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 540px;
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: 0 24px 54px rgba(20, 42, 82, 0.22);
+      border: 1px solid var(--border-soft);
+      max-height: 92vh;
+      overflow-y: auto;
+      animation: popIn 0.2s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #16325c;
+    }
+
+    .close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    /* Loading Modal (Pop-up กำลังประมวลผล) */
+    .loading-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(22, 50, 92, 0.42);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .loading-backdrop.open {
+      display: flex;
+    }
+
+    .loading-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1.5px solid var(--primary-200);
+      border-radius: var(--radius-xl);
+      padding: 30px 38px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(30, 58, 138, 0.25);
+      min-width: 260px;
+    }
+
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border: 5px solid var(--primary-100);
+      border-top-color: var(--primary-500);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      animation: spin 0.85s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #16325c;
+      margin-bottom: 4px;
+    }
+
+    .loading-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Config Warning Banner */
+    .setup-banner {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      color: #92400e;
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .setup-banner.show {
+      display: flex;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .app-header {
+        padding: 18px;
+      }
+      .brand-text h1 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">AC</div>
+        <div class="brand-text">
+          <h1 id="appTitle">บัญชีตักบาตรพระหมื่นรูป</h1>
+          <p>ระบบบันทึกรายรับ-รายจ่าย และสรุปบัญชีออนไลน์</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-soft" onclick="refreshAllData()">
+          <span>↻</span> รีเฟรชข้อมูล
+        </button>
+        <button class="btn btn-soft" onclick="openApiConfigModal()">
+          <span>⚙</span> ตั้งค่า API URL
+        </button>
+      </div>
+    </header>
+
+    <!-- API URL Warning Banner (แสดงเมื่อยังไม่ได้ใส่ URL ของ GAS Web App) -->
+    <div id="setupBanner" class="setup-banner">
+      <div>
+        <strong>ยังไม่ได้เชื่อมต่อ Google Apps Script API:</strong>
+        กรุณากด "ตั้งค่า API URL" เพื่อวาง URL ของ Web App จาก GAS (หรือแก้ไขในตัวแปร <code>APP_CONFIG.API_URL</code>)
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openApiConfigModal()">ใส่ API URL</button>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="home" onclick="switchTab('home', this)">
+        🏠 Home
+      </button>
+      <button class="tab-btn" data-tab="manage" onclick="switchTab('manage', this)">
+        🗂 จัดการข้อมูล
+      </button>
+      <button class="tab-btn" data-tab="summary" onclick="switchTab('summary', this)">
+        📊 สรุปบัญชี
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         TAB 1: HOME (ตารางรายการบัญชี)
+         ====================================================================== -->
+    <section id="tab-home" class="panel active">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">รายการบัญชีตักบาตรพระหมื่นรูป</h2>
+          <div class="toolbar" style="margin-bottom:0;">
+            <input
+              type="text"
+              id="searchHome"
+              class="input"
+              placeholder="ค้นหารายการ / หมวด..."
+              oninput="renderAccountTable()"
+            />
+            <select id="filterHomeType" class="select" onchange="renderAccountTable()">
+              <option value="">ทุกประเภท (รับ/จ่าย)</option>
+              <option value="รับ">เฉพาะรายรับ</option>
+              <option value="จ่าย">เฉพาะรายจ่าย</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>วันที่</th>
+                <th>รับ/จ่าย</th>
+                <th>หมวด</th>
+                <th>รายการ</th>
+                <th class="text-right">หน่วยละ</th>
+                <th class="text-right">จำนวน</th>
+                <th class="text-right">รวมเป็นเงิน</th>
+                <th class="text-center">หลักฐาน</th>
+                <th class="text-center">แก้ไขรายการ</th>
+              </tr>
+            </thead>
+            <tbody id="accountTableBody">
+              <tr>
+                <td colspan="9" class="empty-state">กำลังเตรียมข้อมูล...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ท้ายตาราง มีปุ่มเพิ่มรายการ -->
+        <div class="table-footer">
+          <div id="homeCountInfo" style="color: var(--text-muted); font-size: 0.9rem;">
+            ทั้งหมด 0 รายการ
+          </div>
+          <button class="btn btn-primary" onclick="openAccountModal()">
+            ＋ เพิ่มรายการ
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 2: จัดการข้อมูล (จัดการหมวด รับ/จ่าย)
+         ====================================================================== -->
+    <section id="tab-manage" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">จัดการหมวดหมู่บัญชี</h2>
+          <div class="type-pills" role="group" aria-label="เลือกประเภทรายการ">
+            <button class="type-pill active" data-cat-filter="ทั้งหมด" onclick="setCategoryFilter('ทั้งหมด', this)">
+              ทั้งหมด
+            </button>
+            <button class="type-pill" data-cat-filter="รับ" onclick="setCategoryFilter('รับ', this)">
+              รายรับ
+            </button>
+            <button class="type-pill" data-cat-filter="จ่าย" onclick="setCategoryFilter('จ่าย', this)">
+              รายจ่าย
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table style="min-width: 560px;">
+            <thead>
+              <tr>
+                <th style="width: 80px;">ลำดับ</th>
+                <th style="width: 130px;">รับ/จ่าย</th>
+                <th>ชื่อหมวด</th>
+                <th style="width: 180px;">อัปเดตล่าสุด</th>
+                <th class="text-center" style="width: 150px;">แก้ไขรายการ</th>
+              </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+              <tr>
+                <td colspan="5" class="empty-state">กำลังเตรียมข้อมูลหมวดหมู่...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ท้ายตาราง มีปุ่มเพิ่มหมวด -->
+        <div class="table-footer">
+          <div id="catCountInfo" style="color: var(--text-muted); font-size: 0.9rem;">
+            ทั้งหมด 0 หมวด
+          </div>
+          <button class="btn btn-primary" onclick="openCategoryModal()">
+            ＋ เพิ่มหมวด
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 3: สรุปบัญชี (สรุปรายรับ / รายจ่าย)
+         ====================================================================== -->
+    <section id="tab-summary" class="panel">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-income">
+          <div class="kpi-label">รวมรายรับทั้งหมด</div>
+          <div class="kpi-value" id="sumIncome" style="color: var(--income-text);">0.00 ฿</div>
+          <div class="kpi-sub" id="countIncome">0 รายการ</div>
+        </div>
+        <div class="kpi-card kpi-expense">
+          <div class="kpi-label">รวมรายจ่ายทั้งหมด</div>
+          <div class="kpi-value" id="sumExpense" style="color: var(--expense-text);">0.00 ฿</div>
+          <div class="kpi-sub" id="countExpense">0 รายการ</div>
+        </div>
+        <div class="kpi-card kpi-balance">
+          <div class="kpi-label">คงเหลือสุทธิ</div>
+          <div class="kpi-value" id="sumBalance">0.00 ฿</div>
+          <div class="kpi-sub" id="balanceStatus">สรุปยอดปัจจุบัน</div>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">สรุปรายรับแยกตามหมวด</h3>
+          </div>
+          <div id="incomeByCategory"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">สรุปรายจ่ายแยกตามหมวด</h3>
+          </div>
+          <div id="expenseByCategory"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: เพิ่ม / แก้ไขรายการบัญชี (Pop-up เพิ่มรายการบัญชีใหม่)
+       ======================================================================== -->
+  <div id="accountModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="accountModalTitle">เพิ่มรายการบัญชีใหม่</h3>
+        <button class="close-btn" onclick="closeModal('accountModal')">✕</button>
+      </div>
+      <form id="accountForm" onsubmit="submitAccountForm(event)">
+        <input type="hidden" id="accId" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="accDate">วันที่</label>
+            <input type="date" id="accDate" class="input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="accType">รับ / จ่าย</label>
+            <select id="accType" class="select" onchange="populateCategoryDropdown()" required>
+              <option value="รับ">รับ (รายรับ)</option>
+              <option value="จ่าย">จ่าย (รายจ่าย)</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="accCategory">หมวด</label>
+            <select id="accCategory" class="select" required></select>
+          </div>
+
+          <div class="form-group full">
+            <label for="accItem">รายการ</label>
+            <input type="text" id="accItem" class="input" placeholder="ระบุรายละเอียดรายการ" required />
+          </div>
+
+          <div class="form-group">
+            <label for="accUnitPrice">หน่วยละ (บาท)</label>
+            <input
+              type="number"
+              id="accUnitPrice"
+              class="input"
+              step="0.01"
+              min="0"
+              value="0"
+              oninput="calculateTotal()"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="accQuantity">จำนวน</label>
+            <input
+              type="number"
+              id="accQuantity"
+              class="input"
+              step="0.01"
+              min="0"
+              value="1"
+              oninput="calculateTotal()"
+              required
+            />
+          </div>
+
+          <div class="form-group full">
+            <label for="accTotal">รวมเป็นเงิน (บาท)</label>
+            <input
+              type="number"
+              id="accTotal"
+              class="input num-font"
+              step="0.01"
+              min="0"
+              required
+              style="font-size: 1.1rem; background: var(--surface-soft);"
+            />
+          </div>
+
+          <div class="form-group full">
+            <label for="accEvidence">หลักฐาน (ลิงก์ URL หรือเลือกไฟล์ภาพ/PDF)</label>
+            <input
+              type="text"
+              id="accEvidence"
+              class="input"
+              placeholder="วางลิงก์หลักฐาน (https://...) หรืออัปโหลดไฟล์ด้านล่าง"
+            />
+            <input
+              type="file"
+              id="accEvidenceFile"
+              class="input"
+              accept="image/*,.pdf"
+              style="padding: 7px;"
+            />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            id="btnDeleteAccount"
+            class="btn btn-danger"
+            style="margin-right: auto; display: none;"
+            onclick="deleteCurrentAccount()"
+          >
+            ลบรายการ
+          </button>
+          <button type="button" class="btn btn-soft" onclick="closeModal('accountModal')">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: เพิ่ม / แก้ไขหมวดหมู่
+       ======================================================================== -->
+  <div id="categoryModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="categoryModalTitle">เพิ่มหมวดหมู่ใหม่</h3>
+        <button class="close-btn" onclick="closeModal('categoryModal')">✕</button>
+      </div>
+      <form id="categoryForm" onsubmit="submitCategoryForm(event)">
+        <input type="hidden" id="catId" />
+        <div class="form-grid" style="grid-template-columns: 1fr;">
+          <div class="form-group">
+            <label for="catType">เลือกประเภท (รับ / จ่าย)</label>
+            <select id="catType" class="select" required>
+              <option value="รับ">รับ (รายรับ)</option>
+              <option value="จ่าย">จ่าย (รายจ่าย)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="catName">ชื่อหมวด</label>
+            <input type="text" id="catName" class="input" placeholder="เช่น เงินทำบุญ, ภัตตาหาร" required />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            id="btnDeleteCategory"
+            class="btn btn-danger"
+            style="margin-right: auto; display: none;"
+            onclick="deleteCurrentCategory()"
+          >
+            ลบหมวด
+          </button>
+          <button type="button" class="btn btn-soft" onclick="closeModal('categoryModal')">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกหมวด</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ตั้งค่า API URL
+       ======================================================================== -->
+  <div id="apiConfigModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">ตั้งค่าการเชื่อมต่อ GAS API</h3>
+        <button class="close-btn" onclick="closeModal('apiConfigModal')">✕</button>
+      </div>
+      <div class="form-group">
+        <label for="apiUrlInput">Google Apps Script Web App URL</label>
+        <input
+          type="url"
+          id="apiUrlInput"
+          class="input"
+          placeholder="https://script.google.com/macros/s/AKfycbyuuSQIxuXEjkg6-MwWcDH4jjmE7mt34gF0ME9MRpxrPcf5UXAS5aCFLn6XE-5DyO6E/exec"
+        />
+        <small style="color: var(--text-muted);">
+          Deploy ไฟล์ Code.gs เป็น Web App (Execute as: Me, Who has access: Anyone) แล้วนำ URL มาวางที่นี่
+        </small>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-soft" onclick="closeModal('apiConfigModal')">ปิด</button>
+        <button type="button" class="btn btn-primary" onclick="saveApiUrl()">บันทึกและเชื่อมต่อ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       POP-UP LOADING MODAL (กำลังประมวลผล)
+       ======================================================================== -->
+  <div id="loadingModal" class="loading-backdrop" aria-live="polite" aria-busy="true">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div class="loading-title">กำลังประมวลผล...</div>
+      <div class="loading-sub" id="loadingSubText">กรุณารอสักครู่</div>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================================
+       1. CONFIGURATION SET (กำหนดตัวแปรแยกเป็น Set ไว้สะดวกในการแก้ไข)
+       ======================================================================== */
+    const APP_CONFIG = {
+      APP_NAME: 'บัญชีตักบาตรพระหมื่นรูป',
+      // วาง URL จากการ Deploy Google Apps Script Web App ที่นี่
+      API_URL: 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL',
+      STORAGE_KEY_API: 'takbat_gas_api_url'
+    };
+
+    /* ========================================================================
+       2. APPLICATION STATE
+       ======================================================================== */
+    const state = {
+      accounts: [],
+      categories: [],
+      categoryFilter: 'ทั้งหมด'
+    };
+
+    /* ========================================================================
+       3. INITIALIZATION
+       ======================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.title = APP_CONFIG.APP_NAME;
+      document.getElementById('appTitle').textContent = APP_CONFIG.APP_NAME;
+      checkApiSetupAndLoad();
+    });
+
+    function getApiUrl() {
+      const saved = localStorage.getItem(APP_CONFIG.STORAGE_KEY_API);
+      if (saved && saved.startsWith('http')) return saved;
+      if (APP_CONFIG.API_URL && APP_CONFIG.API_URL.startsWith('http')) return APP_CONFIG.API_URL;
+      return '';
+    }
+
+    function checkApiSetupAndLoad() {
+      const url = getApiUrl();
+      const banner = document.getElementById('setupBanner');
+      if (!url) {
+        banner.classList.add('show');
+        renderAccountTable();
+        renderCategoryTable();
+        renderSummary();
+        return;
+      }
+      banner.classList.remove('show');
+      refreshAllData();
+    }
+
+    /* ========================================================================
+       4. LOADING MODAL & API CLIENT
+       ======================================================================== */
+    function showLoading(message = 'กำลังเชื่อมต่อ Google Sheet...') {
+      document.getElementById('loadingSubText').textContent = message;
+      document.getElementById('loadingModal').classList.add('open');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingModal').classList.remove('open');
+    }
+
+    async function apiGet(action) {
+      const baseUrl = getApiUrl();
+      if (!baseUrl) throw new Error('ยังไม่ได้ตั้งค่า Google Apps Script API URL');
+      const res = await fetch(`${baseUrl}?action=${encodeURIComponent(action)}`);
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error || 'เกิดข้อผิดพลาดในการดึงข้อมูล');
+      return json;
+    }
+
+    async function apiPost(action, payload = {}) {
+      const baseUrl = getApiUrl();
+      if (!baseUrl) throw new Error('ยังไม่ได้ตั้งค่า Google Apps Script API URL');
+      // ใช้ text/plain เพื่อหลีกเลี่ยง CORS Preflight กับ Google Apps Script
+      const res = await fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action, ...payload })
+      });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      return json;
+    }
+
+    async function refreshAllData() {
+      try {
+        showLoading('กำลังโหลดข้อมูลบัญชีและหมวดหมู่...');
+        const res = await apiGet('getAll');
+        state.accounts = res.accounts || [];
+        state.categories = res.categories || [];
+        renderAccountTable();
+        renderCategoryTable();
+        renderSummary();
+      } catch (err) {
+        alert('ไม่สามารถโหลดข้อมูลได้: ' + err.message);
+      } finally {
+        hideLoading();
+      }
+    }
+
+    /* ========================================================================
+       5. TAB NAVIGATION
+       ======================================================================== */
+    function switchTab(tabName, btn) {
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      if (tabName === 'summary') renderSummary();
+    }
+
+    /* ========================================================================
+       6. TAB HOME (รายการบัญชี)
+       ======================================================================== */
+    function renderAccountTable() {
+      const tbody = document.getElementById('accountTableBody');
+      const keyword = (document.getElementById('searchHome').value || '').trim().toLowerCase();
+      const filterType = document.getElementById('filterHomeType').value;
+
+      const filtered = state.accounts.filter(row => {
+        const matchType = !filterType || row.type === filterType;
+        const matchKeyword =
+          !keyword ||
+          (row.item || '').toLowerCase().includes(keyword) ||
+          (row.category || '').toLowerCase().includes(keyword) ||
+          (row.date || '').includes(keyword);
+        return matchType && matchKeyword;
+      });
+
+      document.getElementById('homeCountInfo').textContent = `แสดง ${filtered.length} จากทั้งหมด ${state.accounts.length} รายการ`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="empty-state">
+              ยังไม่มีรายการบัญชีที่แสดง — กดปุ่ม <strong>"＋ เพิ่มรายการ"</strong> ด้านล่างเพื่อเริ่มต้น
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered
+        .map(row => {
+          const typeBadge =
+            row.type === 'รับ'
+              ? '<span class="badge badge-income">รับ</span>'
+              : '<span class="badge badge-expense">จ่าย</span>';
+
+          const evidenceHtml = row.evidence
+            ? isUrl(row.evidence)
+              ? `<a href="${escapeHtml(row.evidence)}" target="_blank" rel="noopener" class="btn btn-soft btn-sm">ดูหลักฐาน</a>`
+              : `<span title="${escapeHtml(row.evidence)}">${escapeHtml(row.evidence)}</span>`
+            : '<span style="color:#94a3b8;">-</span>';
+
+          return `
+            <tr>
+              <td>${escapeHtml(row.date)}</td>
+              <td>${typeBadge}</td>
+              <td><span class="badge badge-cat">${escapeHtml(row.category)}</span></td>
+              <td>${escapeHtml(row.item)}</td>
+              <td class="text-right num-font">${formatMoney(row.unitPrice)}</td>
+              <td class="text-right num-font">${formatNumber(row.quantity)}</td>
+              <td class="text-right num-font" style="color:${row.type === 'รับ' ? 'var(--income-text)' : 'var(--expense-text)'};">
+                ${formatMoney(row.total)}
+              </td>
+              <td class="text-center">${evidenceHtml}</td>
+              <td class="text-center">
+                <button class="btn btn-soft btn-sm" onclick="openAccountModal('${escapeHtml(row.id)}')">
+                  ✎ แก้ไข
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function openAccountModal(id = null) {
+      const form = document.getElementById('accountForm');
+      form.reset();
+      document.getElementById('accEvidenceFile').value = '';
+
+      if (id) {
+        const item = state.accounts.find(a => a.id === id);
+        if (!item) return;
+        document.getElementById('accountModalTitle').textContent = 'แก้ไขรายการบัญชี';
+        document.getElementById('accId').value = item.id;
+        document.getElementById('accDate').value = item.date;
+        document.getElementById('accType').value = item.type;
+        populateCategoryDropdown(item.category);
+        document.getElementById('accItem').value = item.item;
+        document.getElementById('accUnitPrice').value = item.unitPrice;
+        document.getElementById('accQuantity').value = item.quantity;
+        document.getElementById('accTotal').value = item.total;
+        document.getElementById('accEvidence').value = item.evidence || '';
+        document.getElementById('btnDeleteAccount').style.display = 'inline-flex';
+      } else {
+        document.getElementById('accountModalTitle').textContent = 'เพิ่มรายการบัญชีใหม่';
+        document.getElementById('accId').value = '';
+        document.getElementById('accDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('accType').value = 'รับ';
+        populateCategoryDropdown();
+        document.getElementById('accUnitPrice').value = 0;
+        document.getElementById('accQuantity').value = 1;
+        document.getElementById('accTotal').value = 0;
+        document.getElementById('btnDeleteAccount').style.display = 'none';
+      }
+
+      document.getElementById('accountModal').classList.add('open');
+    }
+
+    function populateCategoryDropdown(selectedCat = '') {
+      const type = document.getElementById('accType').value;
+      const select = document.getElementById('accCategory');
+      const cats = state.categories.filter(c => c.type === type);
+
+      if (cats.length === 0) {
+        select.innerHTML = `<option value="ทั่วไป">ทั่วไป (กรุณาเพิ่มหมวดในแท็บจัดการข้อมูล)</option>`;
+      } else {
+        select.innerHTML = cats
+          .map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`)
+          .join('');
+      }
+
+      if (selectedCat) {
+        if (![...select.options].some(o => o.value === selectedCat)) {
+          const opt = document.createElement('option');
+          opt.value = selectedCat;
+          opt.textContent = selectedCat;
+          select.appendChild(opt);
+        }
+        select.value = selectedCat;
+      }
+    }
+
+    function calculateTotal() {
+      const unitPrice = parseFloat(document.getElementById('accUnitPrice').value) || 0;
+      const qty = parseFloat(document.getElementById('accQuantity').value) || 0;
+      document.getElementById('accTotal').value = (unitPrice * qty).toFixed(2);
+    }
+
+    async function submitAccountForm(e) {
+      e.preventDefault();
+      const id = document.getElementById('accId').value;
+      const fileInput = document.getElementById('accEvidenceFile');
+
+      const data = {
+        id,
+        date: document.getElementById('accDate').value,
+        type: document.getElementById('accType').value,
+        category: document.getElementById('accCategory').value,
+        item: document.getElementById('accItem').value.trim(),
+        unitPrice: parseFloat(document.getElementById('accUnitPrice').value) || 0,
+        quantity: parseFloat(document.getElementById('accQuantity').value) || 0,
+        total: parseFloat(document.getElementById('accTotal').value) || 0,
+        evidence: document.getElementById('accEvidence').value.trim()
+      };
+
+      try {
+        showLoading(id ? 'กำลังบันทึกการแก้ไขรายการ...' : 'กำลังเพิ่มรายการบัญชีใหม่...');
+
+        if (fileInput.files && fileInput.files[0]) {
+          data.evidenceFile = await readFileAsBase64(fileInput.files[0]);
+        }
+
+        await apiPost(id ? 'updateAccount' : 'addAccount', { data });
+        closeModal('accountModal');
+        await refreshAllData();
+      } catch (err) {
+        hideLoading();
+        alert('บันทึกไม่สำเร็จ: ' + err.message);
+      }
+    }
+
+    async function deleteCurrentAccount() {
+      const id = document.getElementById('accId').value;
+      if (!id || !confirm('ยืนยันการลบรายการบัญชีนี้?')) return;
+
+      try {
+        showLoading('กำลังลบรายการบัญชี...');
+        await apiPost('deleteAccount', { id });
+        closeModal('accountModal');
+        await refreshAllData();
+      } catch (err) {
+        hideLoading();
+        alert('ลบไม่สำเร็จ: ' + err.message);
+      }
+    }
+
+    /* ========================================================================
+       7. TAB จัดการข้อมูล (หมวดหมู่ รับ/จ่าย)
+       ======================================================================== */
+    function setCategoryFilter(filter, btn) {
+      state.categoryFilter = filter;
+      document.querySelectorAll('.type-pill').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      renderCategoryTable();
+    }
+
+    function renderCategoryTable() {
+      const tbody = document.getElementById('categoryTableBody');
+      const filtered = state.categories.filter(c =>
+        state.categoryFilter === 'ทั้งหมด' ? true : c.type === state.categoryFilter
+      );
+
+      document.getElementById('catCountInfo').textContent = `แสดง ${filtered.length} หมวด`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="empty-state">ยังไม่มีข้อมูลหมวดหมู่</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered
+        .map((cat, idx) => {
+          const typeBadge =
+            cat.type === 'รับ'
+              ? '<span class="badge badge-income">รับ</span>'
+              : '<span class="badge badge-expense">จ่าย</span>';
+          return `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${typeBadge}</td>
+              <td style="font-weight: 600;">${escapeHtml(cat.name)}</td>
+              <td style="color: var(--text-muted); font-size: 0.85rem;">${escapeHtml(cat.updatedAt || '-')}</td>
+              <td class="text-center">
+                <button class="btn btn-soft btn-sm" onclick="openCategoryModal('${escapeHtml(cat.id)}')">
+                  ✎ แก้ไข
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function openCategoryModal(id = null) {
+      const form = document.getElementById('categoryForm');
+      form.reset();
+
+      if (id) {
+        const cat = state.categories.find(c => c.id === id);
+        if (!cat) return;
+        document.getElementById('categoryModalTitle').textContent = 'แก้ไขหมวดหมู่';
+        document.getElementById('catId').value = cat.id;
+        document.getElementById('catType').value = cat.type;
+        document.getElementById('catName').value = cat.name;
+        document.getElementById('btnDeleteCategory').style.display = 'inline-flex';
+      } else {
+        document.getElementById('categoryModalTitle').textContent = 'เพิ่มหมวดหมู่ใหม่';
+        document.getElementById('catId').value = '';
+        document.getElementById('catType').value =
+          state.categoryFilter === 'จ่าย' ? 'จ่าย' : 'รับ';
+        document.getElementById('btnDeleteCategory').style.display = 'none';
+      }
+
+      document.getElementById('categoryModal').classList.add('open');
+    }
+
+    async function submitCategoryForm(e) {
+      e.preventDefault();
+      const id = document.getElementById('catId').value;
+      const data = {
+        id,
+        type: document.getElementById('catType').value,
+        name: document.getElementById('catName').value.trim()
+      };
+
+      try {
+        showLoading(id ? 'กำลังแก้ไขหมวดหมู่...' : 'กำลังเพิ่มหมวดหมู่ใหม่...');
+        await apiPost(id ? 'updateCategory' : 'addCategory', { data });
+        closeModal('categoryModal');
+        await refreshAllData();
+      } catch (err) {
+        hideLoading();
+        alert('บันทึกหมวดหมู่ไม่สำเร็จ: ' + err.message);
+      }
+    }
+
+    async function deleteCurrentCategory() {
+      const id = document.getElementById('catId').value;
+      if (!id || !confirm('ยืนยันการลบหมวดหมู่นี้?')) return;
+
+      try {
+        showLoading('กำลังลบหมวดหมู่...');
+        await apiPost('deleteCategory', { id });
+        closeModal('categoryModal');
+        await refreshAllData();
+      } catch (err) {
+        hideLoading();
+        alert('ลบหมวดหมู่ไม่สำเร็จ: ' + err.message);
+      }
+    }
+
+    /* ========================================================================
+       8. TAB สรุปบัญชี (สรุปรายรับ / รายจ่าย)
+       ======================================================================== */
+    function renderSummary() {
+      let totalIncome = 0;
+      let totalExpense = 0;
+      let countIncome = 0;
+      let countExpense = 0;
+      const incomeMap = {};
+      const expenseMap = {};
+
+      state.accounts.forEach(item => {
+        const amt = Number(item.total) || 0;
+        const cat = item.category || 'ไม่ระบุหมวด';
+        if (item.type === 'รับ') {
+          totalIncome += amt;
+          countIncome++;
+          incomeMap[cat] = (incomeMap[cat] || 0) + amt;
+        } else {
+          totalExpense += amt;
+          countExpense++;
+          expenseMap[cat] = (expenseMap[cat] || 0) + amt;
+        }
+      });
+
+      const balance = totalIncome - totalExpense;
+      document.getElementById('sumIncome').textContent = `${formatMoney(totalIncome)} ฿`;
+      document.getElementById('countIncome').textContent = `${countIncome} รายการ`;
+      document.getElementById('sumExpense').textContent = `${formatMoney(totalExpense)} ฿`;
+      document.getElementById('countExpense').textContent = `${countExpense} รายการ`;
+
+      const balanceEl = document.getElementById('sumBalance');
+      balanceEl.textContent = `${formatMoney(balance)} ฿`;
+      balanceEl.style.color = balance >= 0 ? 'var(--primary-600)' : 'var(--expense-text)';
+
+      renderBreakdown('incomeByCategory', incomeMap, totalIncome, '#34d399');
+      renderBreakdown('expenseByCategory', expenseMap, totalExpense, '#fb7185');
+    }
+
+    function renderBreakdown(containerId, map, grandTotal, barColor) {
+      const container = document.getElementById(containerId);
+      const entries = Object.entries(map).sort((a, b) => b[1] - a[1]);
+
+      if (entries.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding: 22px 0;">ยังไม่มีข้อมูล</div>`;
+        return;
+      }
+
+      container.innerHTML = entries
+        .map(([cat, amount]) => {
+          const pct = grandTotal > 0 ? Math.round((amount / grandTotal) * 100) : 0;
+          return `
+            <div class="progress-item">
+              <div class="progress-head">
+                <span>${escapeHtml(cat)}</span>
+                <span class="num-font">${formatMoney(amount)} ฿ (${pct}%)</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:${pct}%; background:${barColor};"></div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    /* ========================================================================
+       9. API CONFIG MODAL & UTILITIES
+       ======================================================================== */
+    function openApiConfigModal() {
+      document.getElementById('apiUrlInput').value = getApiUrl();
+      document.getElementById('apiConfigModal').classList.add('open');
+    }
+
+    function saveApiUrl() {
+      const val = document.getElementById('apiUrlInput').value.trim();
+      if (!val || !val.startsWith('http')) {
+        alert('กรุณากรอก URL ให้ถูกต้อง (ขึ้นต้นด้วย https://)');
+        return;
+      }
+      localStorage.setItem(APP_CONFIG.STORAGE_KEY_API, val);
+      closeModal('apiConfigModal');
+      checkApiSetupAndLoad();
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function readFileAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result.split(',')[1];
+          resolve({
+            base64,
+            mimeType: file.type,
+            fileName: file.name
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function formatMoney(num) {
+      return Number(num || 0).toLocaleString('th-TH', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatNumber(num) {
+      return Number(num || 0).toLocaleString('th-TH');
+    }
+
+    function isUrl(str) {
+      return /^https?:\/\//i.test(str || '');
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+</html>
