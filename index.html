@@ -931,8 +931,8 @@
           <div class="form-group">
             <label for="accType">รับ / จ่าย</label>
             <select id="accType" class="select" onchange="populateCategoryDropdown()" required>
+              <option value="จ่าย" selected>จ่าย (รายจ่าย)</option>
               <option value="รับ">รับ (รายรับ)</option>
-              <option value="จ่าย">จ่าย (รายจ่าย)</option>
             </select>
           </div>
 
@@ -1305,7 +1305,7 @@
         document.getElementById('accountModalTitle').textContent = 'เพิ่มรายการบัญชีใหม่';
         document.getElementById('accId').value = '';
         document.getElementById('accDate').value = new Date().toISOString().split('T')[0];
-        document.getElementById('accType').value = 'รับ';
+        document.getElementById('accType').value = 'จ่าย';
         populateCategoryDropdown();
         document.getElementById('accUnitPrice').value = 0;
         document.getElementById('accQuantity').value = 1;
